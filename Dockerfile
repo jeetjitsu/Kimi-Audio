@@ -1,3 +1,4 @@
+# might need upgrade
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 
 WORKDIR /app

@@ -6,14 +6,14 @@
 Kimi-Audio-7B <a href="https://huggingface.co/moonshotai/Kimi-Audio-7B">🤗</a>&nbsp; | Kimi-Audio-7B-Instruct <a href="https://huggingface.co/moonshotai/Kimi-Audio-7B-Instruct">🤗</a>&nbsp; | 📑 <a href="https://arxiv.org/pdf/2504.18425">Paper</a> &nbsp;&nbsp;
 </p>
 
-
 We present Kimi-Audio, an open-source audio foundation model excelling in **audio understanding, generation, and conversation**. This repository contains the official implementation, models, and evaluation toolkit for Kimi-Audio.
 
 ## 🔥🔥🔥 News!!
-* April 27, 2025: 👋 We release pretrained model weights of [Kimi-Audio-7B](https://huggingface.co/moonshotai/Kimi-Audio-7B).
-* April 25, 2025: 👋 We release the inference code and model weights of [Kimi-Audio-7B-Instruct](https://huggingface.co/moonshotai/Kimi-Audio-7B-Instruct).
-* April 25, 2025: 👋 We release the audio evaluation toolkit [Kimi-Audio-Evalkit](https://github.com/MoonshotAI/Kimi-Audio-Evalkit). We can easily reproduce the **our results and baselines** by this toolkit!
-* April 25, 2025: 👋 We release the technical report of [Kimi-Audio](https://arxiv.org/pdf/2504.18425).
+
+- April 27, 2025: 👋 We release pretrained model weights of [Kimi-Audio-7B](https://huggingface.co/moonshotai/Kimi-Audio-7B).
+- April 25, 2025: 👋 We release the inference code and model weights of [Kimi-Audio-7B-Instruct](https://huggingface.co/moonshotai/Kimi-Audio-7B-Instruct).
+- April 25, 2025: 👋 We release the audio evaluation toolkit [Kimi-Audio-Evalkit](https://github.com/MoonshotAI/Kimi-Audio-Evalkit). We can easily reproduce the **our results and baselines** by this toolkit!
+- April 25, 2025: 👋 We release the technical report of [Kimi-Audio](https://arxiv.org/pdf/2504.18425).
 
 ## Table of Contents
 
@@ -36,12 +36,12 @@ We present Kimi-Audio, an open-source audio foundation model excelling in **audi
 
 Kimi-Audio is designed as a universal audio foundation model capable of handling a wide variety of audio processing tasks within a single unified framework. Key features include:
 
-*   **Universal Capabilities:** Handles diverse tasks like speech recognition (ASR), audio question answering (AQA), audio captioning (AAC), speech emotion recognition (SER), sound event/scene classification (SEC/ASC), and end-to-end speech conversation.
-*   **State-of-the-Art Performance:** Achieves SOTA results on numerous audio benchmarks (see [Evaluation](#evaluation) and the [Technical Report](https://arxiv.org/pdf/2504.18425)).
-*   **Large-Scale Pre-training:** Pre-trained on over 13 million hours of diverse audio data (speech, music, sounds) and text data, enabling robust audio reasoning and language understanding.
-*   **Novel Architecture:** Employs a hybrid audio input (continuous acoustic + discrete semantic tokens) and an LLM core with parallel heads for text and audio token generation.
-*   **Efficient Inference:** Features a chunk-wise streaming detokenizer based on flow matching for low-latency audio generation.
-*   **Open-Source:** We release the code, model checkpoints for both pretrain and instruction finetuning, and a comprehensive evaluation toolkit to foster community research and development.
+- **Universal Capabilities:** Handles diverse tasks like speech recognition (ASR), audio question answering (AQA), audio captioning (AAC), speech emotion recognition (SER), sound event/scene classification (SEC/ASC), and end-to-end speech conversation.
+- **State-of-the-Art Performance:** Achieves SOTA results on numerous audio benchmarks (see [Evaluation](#evaluation) and the [Technical Report](https://arxiv.org/pdf/2504.18425)).
+- **Large-Scale Pre-training:** Pre-trained on over 13 million hours of diverse audio data (speech, music, sounds) and text data, enabling robust audio reasoning and language understanding.
+- **Novel Architecture:** Employs a hybrid audio input (continuous acoustic + discrete semantic tokens) and an LLM core with parallel heads for text and audio token generation.
+- **Efficient Inference:** Features a chunk-wise streaming detokenizer based on flow matching for low-latency audio generation.
+- **Open-Source:** We release the code, model checkpoints for both pretrain and instruction finetuning, and a comprehensive evaluation toolkit to foster community research and development.
 
 ## Architecture Overview
 
@@ -52,12 +52,10 @@ Kimi-Audio is designed as a universal audio foundation model capable of handling
 Kimi-Audio consists of three main components:
 
 1.  **Audio Tokenizer:** Converts input audio into:
-    *   Discrete semantic tokens (12.5Hz) using vector quantization.
-    *   Continuous acoustic features derived from a Whisper encoder (downsampled to 12.5Hz).
+    - Discrete semantic tokens (12.5Hz) using vector quantization.
+    - Continuous acoustic features derived from a Whisper encoder (downsampled to 12.5Hz).
 2.  **Audio LLM:** A transformer-based model (initialized from a pre-trained text LLM like Qwen 2.5 7B) with shared layers processing multimodal inputs, followed by parallel heads for autoregressively generating text tokens and discrete audio semantic tokens.
 3.  **Audio Detokenizer:** Converts the predicted discrete semantic audio tokens back into high-fidelity waveforms using a flow-matching model and a vocoder (BigVGAN), supporting chunk-wise streaming with a look-ahead mechanism for low latency.
-
-
 
 ## Quick Start
 
@@ -68,7 +66,7 @@ import soundfile as sf
 from kimia_infer.api.kimia import KimiAudio
 
 # --- 1. Load Model ---
-model_path = "moonshotai/Kimi-Audio-7B-Instruct" 
+model_path = "moonshotai/Kimi-Audio-7B-Instruct"
 model = KimiAudio(model_path=model_path, load_detokenizer=True)
 
 # --- 2. Define Sampling Parameters ---
@@ -116,22 +114,18 @@ print("Kimi-Audio inference examples complete.")
 
 ## Evaluation
 
-Kimi-Audio achieves state-of-the-art (SOTA) performance across a wide range of audio benchmarks. 
+Kimi-Audio achieves state-of-the-art (SOTA) performance across a wide range of audio benchmarks.
 
 The below is the overall performance:
+
 <p align="center">
     <img src="assets/kimia_radar_chart.png" width="70%"/>
 <p>
 
-
-
-
-
-
-
 Here are performances on different benchmarks, you can easily reproduce the **our results and baselines** by our [Kimi-Audio-Evalkit](https://github.com/MoonshotAI/Kimi-Audio-Evalkit) (also see [**Evaluation Toolkit**](#evaluation-toolkit)):
 
 ### Automatic Speech Recognition (ASR)
+
 <table>
   <thead>
     <tr>
@@ -271,6 +265,7 @@ Here are performances on different benchmarks, you can easily reproduce the **ou
 </table>
 
 ### Audio Understanding
+
 <table>
   <thead>
     <tr>
@@ -524,6 +519,7 @@ Here are performances on different benchmarks, you can easily reproduce the **ou
 </table>
 
 ### Speech Conversation
+
 <table>
   <caption>Performance of Kimi-Audio and baseline models on speech conversation.</caption>
   <thead>
@@ -589,17 +585,16 @@ Here are performances on different benchmarks, you can easily reproduce the **ou
   </tbody>
 </table>
 
-
-
 ## Evaluation Toolkit
 
 Evaluating and comparing audio foundation models is challenging due to inconsistent metrics, varying inference configurations, and a lack of standardized generation evaluation. To address this, we developed and open-sourced an **Evaluation Toolkit**.
 
 Key features:
-*   Integrates Kimi-Audio and other recent audio LLMs.
-*   Implements standardized metric calculation and integrates LLMs for intelligent judging (e.g., for AQA).
-*   Provides a unified platform for side-by-side comparisons with shareable inference 'recipes' for reproducibility.
-*   Includes a benchmark for evaluating speech conversation abilities (control, empathy, style).
+
+- Integrates Kimi-Audio and other recent audio LLMs.
+- Implements standardized metric calculation and integrates LLMs for intelligent judging (e.g., for AQA).
+- Provides a unified platform for side-by-side comparisons with shareable inference 'recipes' for reproducibility.
+- Includes a benchmark for evaluating speech conversation abilities (control, empathy, style).
 
 We encourage the community to use and contribute to this toolkit to foster more reliable and comparable benchmarking. Find it here: [Kimi-Audio-Evalkit](https://github.com/MoonshotAI/Kimi-Audio-Evalkit).
 
@@ -611,21 +606,16 @@ We collect and release [Kimi-Audio-Generation-Testset](https://huggingface.co/da
 
 The model is based and modified from [Qwen 2.5-7B](https://github.com/QwenLM/Qwen2.5). Code derived from Qwen2.5-7B is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0). Other parts of the code are licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-
-
 ## Acknowledgements
 
 We would like to thank the following projects and individuals for their contributions to the development of Kimi-Audio:
 
-* [Whisper](https://github.com/openai/whisper)
-* [Transformers](https://github.com/huggingface/transformers)
-* [BigVGAN](https://github.com/NVIDIA/BigVGAN)
-* [GLM-4-Voice](https://github.com/THUDM/GLM-4-Voice)
+- [Whisper](https://github.com/openai/whisper)
+- [Transformers](https://github.com/huggingface/transformers)
+- [BigVGAN](https://github.com/NVIDIA/BigVGAN)
+- [GLM-4-Voice](https://github.com/THUDM/GLM-4-Voice)
 
 Thank you to all the open-source projects for their contributions to this project!
-
-
-
 
 ## Citation
 
@@ -633,13 +623,13 @@ If you find Kimi-Audio useful in your research or applications, please cite our 
 
 ```bibtex
 @misc{kimiteam2025kimiaudiotechnicalreport,
-      title={Kimi-Audio Technical Report}, 
+      title={Kimi-Audio Technical Report},
       author={KimiTeam and Ding Ding and Zeqian Ju and Yichong Leng and Songxiang Liu and Tong Liu and Zeyu Shang and Kai Shen and Wei Song and Xu Tan and Heyi Tang and Zhengtao Wang and Chu Wei and Yifei Xin and Xinran Xu and Jianwei Yu and Yutao Zhang and Xinyu Zhou and Y. Charles and Jun Chen and Yanru Chen and Yulun Du and Weiran He and Zhenxing Hu and Guokun Lai and Qingcheng Li and Yangyang Liu and Weidong Sun and Jianzhou Wang and Yuzhi Wang and Yuefeng Wu and Yuxin Wu and Dongchao Yang and Hao Yang and Ying Yang and Zhilin Yang and Aoxiong Yin and Ruibin Yuan and Yutong Zhang and Zaida Zhou},
       year={2025},
       eprint={2504.18425},
       archivePrefix={arXiv},
       primaryClass={eess.AS},
-      url={https://arxiv.org/abs/2504.18425}, 
+      url={https://arxiv.org/abs/2504.18425},
 }
 ```
 
